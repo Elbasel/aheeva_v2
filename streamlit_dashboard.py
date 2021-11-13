@@ -52,7 +52,9 @@ refresh_data(account, start_date, end_date)
 
 refresh_button = st.sidebar.button('Refresh', on_click=update_data, args=[account.lower(), start_date, end_date])
 
-st.title(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} - {end_date.month}/{end_date.day}')
+st.title('Real Time Performance')
+
+st.header(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} - {end_date.month}/{end_date.day}')
 
 
 outbound_header = 'Outbound' if account != 'swvl' else 'Customer Experience'
