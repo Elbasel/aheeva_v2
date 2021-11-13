@@ -32,7 +32,7 @@ def refresh_data(account, start_date, end_date, interval=current_interval()):
 st.set_page_config(page_title='Real-Time')
 os.system('cls')
 
-
+st.caption('Abdulrahman Elbasel')
 TODAY = datetime.today()
 with open('last_refresh.pickle', 'rb') as last_refersh:
         last_account, last_start_date, last_end_date, last_interval = pickle.load(last_refersh)
