@@ -73,7 +73,7 @@ def analyze_outbound(account, start_date, end_date):
     df['outbound_calls'] = df.apply(get_outbound_calls, axis=1)
     df = pd.merge(df, lookup, on='agent_id', how='left')
     df['date'] = df.start_time.apply(lambda x: x.date())
-    df.to_csv('test.csv')
+    # df.to_csv('test.csv')
 
 
     df['status_shift'] = df.status.shift(-1)
@@ -103,7 +103,9 @@ def analyze_outbound(account, start_date, end_date):
     
     interval_group.interval = interval_group.interval.apply(lambda x: str(x))
     bar_chart_df = interval_group.loc[:, ['interval', 'outbound_status', 'outbound_calls']].set_index('interval')
-    bar_chart_df.rename(columns={'outbound_status': 'Answered', 'outbound_calls': ''}, inplace=True)
+    bar_chart_df['Not Answered'] = bar_chart_df.outbound_calls - bar_chart_df.outbound_status
+    bar_chart_df.drop(['outbound_calls'], axis=1, inplace=True)
+    bar_chart_df.rename(columns={'outbound_status': 'Answered', 'Not Answered': ''}, inplace=True)
     interval_group.outbound_calls = interval_group.outbound_calls.apply(lambda x: str(x))
     interval_group.outbound_calls = interval_group.outbound_calls.apply(lambda x: str(x))
     interval_group.outbound_status = interval_group.outbound_status.apply(lambda x: str(x))
