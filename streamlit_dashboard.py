@@ -30,7 +30,7 @@ def refresh_data(account, start_date, end_date, interval=current_interval()):
             pickle.dump([account, start_date, end_date, interval], last_referesh)
 
 st.set_page_config(page_title='Real-Time')
-os.system('cls')
+os.system('clear')
 
 st.caption('Abdulrahman Elbasel')
 TODAY = datetime.today()
