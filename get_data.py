@@ -33,6 +33,7 @@ def update_data(account, start_date, end_date):
         copy(f'data_cache/{account}_{start_date}_{end_date}_outbound.csv', f'{account}_outbound.csv')
         print('data cache found')
         print('loading data from cache')
+        print('-'*40)
         return
     except FileNotFoundError:
         pass

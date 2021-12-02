@@ -12,6 +12,8 @@ from get_data import update_data
 from outbound import analyze_outbound
 from inbound import analyze_inbound
 
+from outbound import load_data
+
 
 
 def current_interval():
@@ -44,6 +46,8 @@ account = st.sidebar.selectbox('Account', account_list, index=account_index).low
 start_date = st.sidebar.date_input('From')
 end_date = st.sidebar.date_input('To')
 
+
+
 if end_date - start_date < timedelta(0, 0, 0):
     st.header('Please choose a correct date interval')
     st.stop()
@@ -51,6 +55,11 @@ if end_date - start_date < timedelta(0, 0, 0):
 refresh_data(account, start_date, end_date)
 
 refresh_button = st.sidebar.button('Refresh', on_click=update_data, args=[account.lower(), start_date, end_date])
+with open(f'{account}_outbound.csv') as outbound_file:
+    st.sidebar.download_button('Download Outbound Raw Data', outbound_file, f'{account} Outbound {start_date} to {end_date}.csv')
+
+with open(f'{account}_inbound.csv') as inbound_file:
+    st.sidebar.download_button('Download Inbound Raw Data', inbound_file, f'{account} Inbound {start_date} to {end_date}.csv')
 
 st.title('Real Time Performance')
 
