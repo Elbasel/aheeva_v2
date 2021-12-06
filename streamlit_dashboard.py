@@ -55,21 +55,28 @@ if end_date - start_date < timedelta(0, 0, 0):
 refresh_data(account, start_date, end_date)
 
 refresh_button = st.sidebar.button('Refresh', on_click=update_data, args=[account.lower(), start_date, end_date])
-with open(f'{account}_outbound.csv') as outbound_file:
-    st.sidebar.download_button('Download Outbound Raw Data', outbound_file, f'{account} Outbound {start_date} to {end_date}.csv')
+try:
+    with open(f'{account}_outbound.csv') as outbound_file:
+        st.sidebar.download_button('Download Outbound Raw Data', outbound_file, f'{account} Outbound {start_date} to {end_date}.csv')
 
-with open(f'{account}_inbound.csv') as inbound_file:
-    st.sidebar.download_button('Download Inbound Raw Data', inbound_file, f'{account} Inbound {start_date} to {end_date}.csv')
+    with open(f'{account}_inbound.csv') as inbound_file:
+        st.sidebar.download_button('Download Inbound Raw Data', inbound_file, f'{account} Inbound {start_date} to {end_date}.csv')
+except FileNotFoundError:
+    st.header('Bad Credentials')
+    st.stop()
 
 st.title('Real Time Performance')
 
-st.header(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} - {end_date.month}/{end_date.day}')
+st.header(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} to {end_date.month}/{end_date.day}')
 
 
 outbound_header = 'Outbound' if account != 'swvl' else 'Customer Experience'
 inbound_header = 'Inbound' if account != 'swvl' else 'Captain Helpline'
-
-outbound_interval_styler, outbound_agent_styler, total_outbound_calls, answered_calls, total_aht, outbound_date_group, outbound_bar_chart = analyze_outbound(account, start_date, end_date)
+try:
+    outbound_interval_styler, outbound_agent_styler, total_outbound_calls, answered_calls, total_aht, outbound_date_group, outbound_bar_chart = analyze_outbound(account, start_date, end_date)
+except ValueError:
+    st.header('Bad Credntials')
+    st.stop()
 
 if account != 'udacity':
     inbound_interval_styler, inbound_agent_styler, total_inbound_calls, total_answered_calls, total_abandoned_calls, inbound_aht, inbound_date_styler, total_sla, total_answered_within  = analyze_inbound(account, start_date, end_date)

@@ -62,7 +62,10 @@ def analyze_outbound(account, start_date, end_date):
     
     print(f'loading {account} outbound data {start_date}_{end_date}...')
 
-    df = load_data(account)
+    try:
+        df = load_data(account)
+    except FileNotFoundError:
+        return 'Bad Credentials'
     if df.empty:
         return 0, 0, 0, 0, 0, 0, 0
     print('analyzing outbound data...')

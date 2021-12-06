@@ -193,4 +193,4 @@ def update_data(account, start_date, end_date):
 
 if __name__ == '__main__':
     today = datetime.today().date()
-    update_data('swvl', today, today)
+    update_data('rizkalla', today, today)
