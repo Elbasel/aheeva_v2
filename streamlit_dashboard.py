@@ -62,8 +62,15 @@ try:
     with open(f'{account}_inbound.csv') as inbound_file:
         st.sidebar.download_button('Download Inbound Raw Data', inbound_file, f'{account} Inbound {start_date} to {end_date}.csv')
 except FileNotFoundError:
-    st.header('Bad Credentials')
-    st.stop()
+    if datetime.now().hour < 8:
+
+        st.header('Everyone is sleeping right now!')
+        st.header('There\'s no data to display for today')
+        st.header('Try changing the date on the right to the previous day to see results')
+        st.stop(_)
+    else:
+        st.header('Bad Credentials ERROR 402')
+        st.stop()
 
 st.title('Real Time Performance')
 
