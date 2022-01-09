@@ -82,7 +82,8 @@ inbound_header = 'Inbound' if account != 'swvl' else 'Captain Helpline'
 try:
     outbound_interval_styler, outbound_agent_styler, total_outbound_calls, answered_calls, total_aht, outbound_date_group, outbound_bar_chart = analyze_outbound(account, start_date, end_date)
 except ValueError:
-    st.header('Bad Credntials')
+    st.header('Shift Hasn\'t started yet')
+    st.write('Please select a different date interval from the left sidebar')
     st.stop()
 
 if account != 'udacity':
