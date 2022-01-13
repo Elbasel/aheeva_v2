@@ -76,7 +76,7 @@ except FileNotFoundError:
 
 # st.title('Real Time Performance')
 
-st.title(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} to {end_date.month}/{end_date.day}')
+st.title(f'{account.capitalize()} Egypt Performance {start_date.month}/{start_date.day} to {end_date.month}/{end_date.day}')
 st.caption('Made with ❤️ by Abdulrahman Elbasel')
 
 
