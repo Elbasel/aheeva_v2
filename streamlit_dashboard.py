@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from xlrd import xldate_as_datetime
+from time import sleep
 from datetime import datetime, timedelta
 from matplotlib import cm
 import os
@@ -32,9 +33,9 @@ def refresh_data(account, start_date, end_date, interval=current_interval()):
             pickle.dump([account, start_date, end_date, interval], last_referesh)
 
 st.set_page_config(page_title='Real-Time')
+sleep(3)
 os.system('clear')
 
-st.caption('Abdulrahman Elbasel')
 TODAY = datetime.today()
 with open('last_refresh.pickle', 'rb') as last_refersh:
         last_account, last_start_date, last_end_date, last_interval = pickle.load(last_refersh)
@@ -42,7 +43,8 @@ with open('last_refresh.pickle', 'rb') as last_refersh:
 # start_date = end_date = TODAY.date()
 account_list = ['Furless', 'SWVL', 'BAT', 'Rizkalla', 'Udacity', 'ZoomCar']
 account_index =  list(map(str.lower, account_list)).index(last_account) if last_account else 1
-account = st.sidebar.selectbox('Account', account_list, index=account_index).lower()
+# account = st.sidebar.selectbox('Account', account_list, index=account_index).lower()
+account = 'swvl'
 start_date = st.sidebar.date_input('From')
 end_date = st.sidebar.date_input('To')
 
@@ -72,9 +74,10 @@ except FileNotFoundError:
         st.header('Bad Credentials ERROR 402')
         st.stop()
 
-st.title('Real Time Performance')
+# st.title('Real Time Performance')
 
-st.header(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} to {end_date.month}/{end_date.day}')
+st.title(f'{account.capitalize()} Performance {start_date.month}/{start_date.day} to {end_date.month}/{end_date.day}')
+st.caption('Made with ❤️ by Abdulrahman Elbasel')
 
 
 outbound_header = 'Outbound' if account != 'swvl' else 'Customer Experience'
