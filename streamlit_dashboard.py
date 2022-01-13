@@ -77,7 +77,10 @@ except FileNotFoundError:
 # st.title('Real Time Performance')
 
 st.title(f'{account.capitalize()} Egypt Performance')
-st.header(f'{start_date.month}/{start_date.day} To {end_date.month}/{end_date.day}')
+if start_date == end_date: 
+    st.header(f'{start_date.strftime("%B %-d")}')
+else:
+    st.header(f'{start_date.strftime("%B")} {start_date.day} To {end_date.strftime("%B")} {end_date.day}')
 st.caption('Made with ❤️ by Abdulrahman Elbasel')
 
 
