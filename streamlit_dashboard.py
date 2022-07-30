@@ -54,10 +54,13 @@ if end_date - start_date < timedelta(0, 0, 0):
     st.header('Please choose a correct date interval')
     st.stop()
 
-refresh_data(account, start_date, end_date)
+# refresh_data(account, start_date, end_date)
 
-refresh_button = st.sidebar.button('Refresh', on_click=update_data, args=[account.lower(), start_date, end_date])
+# refresh_button = st.sidebar.button('Refresh', on_click=update_data, args=[account.lower(), start_date, end_date])
+refresh_button = st.sidebar.button('Refresh', args=[account.lower(), start_date, end_date])
+
 try:
+
     with open(f'{account}_outbound.csv') as outbound_file:
         st.sidebar.download_button('Download Outbound Raw Data', outbound_file, f'{account} Outbound {start_date} to {end_date}.csv')
 
@@ -81,7 +84,6 @@ if start_date == end_date:
     st.header(f'{start_date.strftime("%B %-d")}')
 else:
     st.header(f'{start_date.strftime("%B")} {start_date.day} To {end_date.strftime("%B")} {end_date.day}')
-st.caption('Made with ❤️ by Abdulrahman Elbasel For Centro CDX')
 
 
 outbound_header = 'Outbound' if account != 'swvl' else 'Customer Experience'
